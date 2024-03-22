@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { DigimonServices } from './digimones-jrr/digimones-jrr.service';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +7,14 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'Digimon-jrr';
+  digimones: any;
+
+  constructor(public digimon: DigimonServices) { }
+
+  ngOnInit() {
+    this.digimon.getDigimones().subscribe(
+      (r) => {this.digimones = r; console.log(r)}, 
+      (e) => { console.log(e) }
+    );
+  }
 }
